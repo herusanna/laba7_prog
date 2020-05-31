@@ -1,15 +1,15 @@
 ﻿#include <iostream>
-//#include <queue> 
+#include <stack> 
 //#define STACK_SIZE          10
 #include <cstdlib>
 using namespace std;
-/*
-struct Queue
-{
-    int data[N]; //массив данных
-    int first;
-    int last; //указатель на конец
-};*/
+struct list {
+    int field;
+    struct list* ptr;
+};
+struct Queue {
+    struct list* frnt, * rear;
+};
 #define QMAX 100
 struct queue {
     int qu[QMAX];
@@ -94,190 +94,91 @@ void lvl1() {
         print(q);
 }
 
-int main() {
-    lvl1();
-}
 
+void lvl2() {
+    /*Создать стек целочисленных значений, используя односвязные списки. Реализовать операции добавления (push) и удаления (pop) элемента из стека.
+    Добавьте в стек числа 1, 2, 3, 4, 5 и распечатайте содержимое стека.
+    Удалите 3 элемента из стека, и распечатайте содержимое стека еще раз. 
+    Найдите сумму элементов из стека.*/
+    setlocale(LC_ALL, "Russian");
+    stack <int> Numbers;
 
-/*
-setlocale(LC_ALL, "Rus");
-   queue <int> num;
-    int size, new_number, D = 0, firstElement;
-restartSize:
-    cout << "Введите кол-во чисел для ввода: ";
-    while (!(cin >> size))
+    int arr[5],  sum=0;
+
+    Numbers.push(1);  
+    Numbers.push(2);
+    Numbers.push(3);
+    Numbers.push(4);
+    Numbers.push(5);
+
+    // проверка стека на пустоту;
+    if (Numbers.empty())
     {
-        cout << "Wrong input" << endl;
-        cin.clear();
-        cin.ignore(65535, '\n');
-    }
-    cout << endl;
-    cout << "Введите число D: ";
-    while (!(cin >> D))
-    {
-        cout << "Wrong input" << endl;
-        cin.clear();
-        cin.ignore(65535, '\n');
-    }
-    cout << endl;
-    if (size >= 2) {
-        for (int i = 0; i < size; i++)
-        {
-            cout << "Число " << i + 1 << ": ";
-            cin >> new_number;
-
-           num.push(new_number);
-
-
-            cout << endl;
-        }
-        for (int i = 0; i < size; i++)
-        {
-            cout << num.front() << " ";
-            num.pop();
-        }
-        cout << "Самый первый элемент в очереди: " << num.front() << endl;
-        num.pop();  // удаляем элемент из очереди
-
-        cout << "Новый первый элемент (после удаления): " << num.front() << endl;
-    }
-    else {
-        cout << "Размер должен быть больше или равен 2";
-        goto restartSize;
+        cout << "Стек чист" << endl << endl;
     }
 
-
-
-
-
-
-
-void Creation(Queue* Q) {  // инициализация очереди
-    //Queue* Q;
-    Q->last = 0;
-    //return
-}
-
-bool Full(Queue* Q) //проверка очереди на пустоту
-{
-    if (Q->last == 0)
-        return true;
     else
-        return false;
-}
-void Add(Queue* Q) //добавление элемента
-{
-    if (Q->last == N) {
-        cout << "\nОчередь заполнена\n\n"; return;
-    }
-    int value;
-    cout << "\nЗначение > "; cin >> value;
-    Q->data[Q->last++] = value;
-    cout << endl << "Элемент добавлен в очередь\n\n";
-}
+    {
+        cout << "Числа стека: ";
 
-bool Delete(Queue* Q) //удаление элемента
-{
-    for (int i = 0; i < Q->last && i < N; i++) //смещение элементов
-        Q->data[i] = Q->data[i + 1]; Q->last--;
-    return true;
-}
-
-void Top(Queue* Q) // вывод очереди
-{
-    int i = 0;
-    while (i < Q->last) {
-        cout << Q->data[i++] << " ";
-    }
-    cout << endl << endl;
-}
-struct Node
-{
-    //Item item;
-    int Data;
-    Node* Next;
-    // TNode* Prev;
-};
-//typedef Node* PNode;
-Node* front;    //начало очереди
-Node* rear;     //конец очереди
-
-struct Stack {
-    int inf;
-    Stack* next;
-};
-
- Queue* Q;
-    Creation(Q);
-    char number;
-    do {
-        cout << "1. Добавить элемент" << endl;
-        cout << "2. Удалить элемент" << endl;
-        cout << "3. Вывести очередь" << endl;
-        cout << "0. Выйти\n\n";
-        cout << "Номер команды > ";
-        cin >> number;
-
-        switch (number)
+        // выводим значения стека, перед удалением записываем элемент в массив;
+        for (int i = 0; i < 5;)
         {
-        case '1':
-            Add(Q);
-            break;
-
-        case '2':
-            if (Full(Q))
-                cout << endl << "Очередь пуста\n\n";
-            else {
-                if (Full(Q)) cout << endl << "Очередь пуста\n\n";
-                else
-                    Delete(Q);
-                cout << endl << "Элемент удален из очереди\n\n";
-            }
-            break;
-
-        case '3':
-            if (Full(Q))
-                cout << endl << "Очередь пуста\n\n";
-            else {
-                cout << "\nОчередь: ";
-                Top(Q);
-                break;
-            }
-
-        case '0':
-            break;
-
-        default:
-            cout << endl << "Команда не определена\n\n";
-            break;
+            cout << Numbers.top() << " ";
+            arr[i] = Numbers.top();
+            Numbers.pop();
+            i++;
         }
-    } while (number != '0');
 
+        cout << endl << endl;
 
+        // считываем элементы массива в стек
+        for (int i = 0; i < 5;)
+        {
+            Numbers.push(arr[i]);
+            i++;
+            
+        }
+        Numbers.pop();
+        Numbers.pop();
+        Numbers.pop();
 
-void push(Stack*& head, int what) {
-    Stack* new_el = new Stack();
+        if (Numbers.empty())
+        {
+            cout << "Стек чист" << endl << endl;
+        }
 
-    new_el->inf = what;
+        else
+        {
+           
+            for (int i = 0; i < 2;)
+            {
+                cout << Numbers.top() << " ";
+                arr[i] = Numbers.top();
+                Numbers.pop();
+                i++;
+            }
+            cout << endl << endl;
+            /*
+            for (int i = 0; i < 2;)
+            {
+                Numbers.push(arr[i]);
+                i++;
+            }*/
+            for (int i = 0; i < 2;i++)
+            {
+                sum += arr[i];
+            }
+            cout << "Сумма элементов: " << sum << endl << endl;
+        }   
+    }
+   
 
-    if (head)
-        new_el->next = head;
-
-    head = new_el;
+}
+int main() {
+    //lvl1();
+    lvl2();
+    system("pause");
+    return 0;
 }
 
-int pop(Stack*& head) {
-    int what;
-
-    auto del = head;
-
-    what = head->inf;
-
-    head = head->next;
-
-    delete del;
-
-    return what;
-}
-
-*/
